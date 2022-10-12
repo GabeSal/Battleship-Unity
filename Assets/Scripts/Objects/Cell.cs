@@ -5,19 +5,14 @@ public class Cell : MonoBehaviour
 {
     [SerializeField]
     private bool _containsShip = false;
-    private BoxCollider _cellCollider;
 
     public event Action<Cell> OnCellSelect;
 
-    private void Awake()
-    {
-        _cellCollider = GetComponent<BoxCollider>();
-    }
-
     private void OnTriggerEnter(Collider ship)
     {
-        if (ship != null && ship.CompareTag("Ship"))
+        if (ship.CompareTag("Ship"))
         {
+            //Debug.Log(string.Format("A ship was found at {0}!", this.name));
             _containsShip = true;
         }
     }

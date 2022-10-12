@@ -26,6 +26,11 @@ public class GameManager : MonoBehaviour
         enemyBoard.GenerateBoard(_boardDimensionX, _boardDimensionY);
     }
 
+    /// <summary>
+    /// Creates a new game object that will act as the board to hold interactive cells and ship pieces
+    /// </summary>
+    /// <param name="boardName">String value that will name the board game object</param>
+    /// <returns></returns>
     private GameObject CreateBoardInHierarchy(string boardName)
     {
         GameObject board = new GameObject(boardName);
