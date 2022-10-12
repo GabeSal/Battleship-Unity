@@ -1,10 +1,17 @@
 using System;
 using UnityEngine;
 
-public abstract class Ship : MonoBehaviour, ITakeHit
+public class Ship : MonoBehaviour, ITakeHit
 {
-    protected int _totalHits;
-    protected int _hitsRemaining;
+    [SerializeField]
+    private int _totalHits;
+    private int _hitsRemaining;
+    private MeshRenderer _shipGraphics;
+
+    private void Awake()
+    {
+        _shipGraphics = GetComponent<MeshRenderer>();
+    }
 
     public void TakeDamage()
     {
@@ -30,6 +37,6 @@ public abstract class Ship : MonoBehaviour, ITakeHit
 
     public void SinkShip(Ship ship)
     {
-        ship.enabled = false;
+        _shipGraphics.enabled = false;
     }
 }
