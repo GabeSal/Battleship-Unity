@@ -4,48 +4,45 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject[] _boards = new GameObject[2];
-    [SerializeField]
-    private GameObject[] _playerShips = new GameObject[7];
-    [SerializeField]
-    private GameObject[] _enemyShips = new GameObject[7];
+    #region Serialized Fields
     [SerializeField]
     private Scene[] _scenes;
-    [SerializeField]
-    private int _boardDimensionX;
-    [SerializeField]
-    private int _boardDimensionY;
+    #endregion
 
-    // Start is called before the first frame update
-    void Start()
+    #region 'Manager' Objects
+    public AudioManager audioManager;
+    public BoardManager boardManager;
+    public ShipManager shipManager;
+    #endregion
+
+    #region Public Data Members
+    public bool PlayerTurn = true;
+    #endregion
+
+    #region Private Data Members
+    private static GameManager _instance;
+    #endregion
+
+    #region Constructor
+    public static GameManager Instance
     {
-        _boards[0] = CreateBoardInHierarchy("EnemyBoard");
+        get
+        {
+            if(_instance == null)
+            {
+                Debug.LogError("ERROR: No GameManager exists in the scene!");
+            }
 
-        EnemyBoard enemyBoard = _boards[0].GetComponent<EnemyBoard>();
-        enemyBoard.GenerateBoard(_boardDimensionX, _boardDimensionY);
+            return _instance;
+        }
     }
+    #endregion
 
-    /// <summary>
-    /// Creates a new game object that will act as the board to hold interactive cells and ship pieces
-    /// </summary>
-    /// <param name="boardName">String value that will name the board game object</param>
-    /// <returns></returns>
-    private GameObject CreateBoardInHierarchy(string boardName)
+    private void Awake()
     {
-        GameObject board = new GameObject(boardName);
-
-        if (boardName.Equals("EnemyBoard"))
+        if (_instance == null)
         {
-            board.AddComponent<EnemyBoard>();
+            _instance = this;
         }
-        else
-        {
-            board.AddComponent<PlayerBoard>();
-        }
-
-        board.tag = "Board";
-
-        return board;
     }
 }

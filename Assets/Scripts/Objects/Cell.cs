@@ -5,30 +5,25 @@ public class Cell : MonoBehaviour
 {
     [SerializeField]
     private bool _containsShip = false;
+    private bool _activeCell = true;
 
     public event Action<Cell> OnCellSelect;
 
-    private void OnTriggerEnter(Collider ship)
+    private void OnMouseDown()
     {
-        if (ship.CompareTag("Ship"))
+        if(_activeCell)
         {
-            //Debug.Log(string.Format("A ship was found at {0}!", this.name));
-            _containsShip = true;
+            DisableCell();
+            OnCellSelect?.Invoke(this);
+            //Debug.Log(string.Format("{0} was selected.", this.gameObject.name));
         }
     }
-
     public void EnableCell()
     {
-        gameObject.SetActive(true);
+        _activeCell = true;
     }
-
-    public void DisableCell()
+    private void DisableCell()
     {
-        gameObject.SetActive(false);
-    }
-
-    public bool CheckForShip()
-    {
-        return _containsShip;
+        _activeCell = false;
     }
 }

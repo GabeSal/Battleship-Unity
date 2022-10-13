@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public abstract class Projectile : MonoBehaviour, IDamageShip
+public abstract class Projectile : MonoBehaviour
 {
     [SerializeField]
     protected float speed;
@@ -9,9 +9,4 @@ public abstract class Projectile : MonoBehaviour, IDamageShip
     protected Vector3 direction;
 
     public event Action<Ship> OnImpact;
-
-    public void DamageShip(Ship ship)
-    {
-        ship.TakeDamage();
-    }
 }

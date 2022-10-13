@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Ship : MonoBehaviour, ITakeHit
+public class Ship : MonoBehaviour
 {
     [SerializeField]
     private int _totalHits;
@@ -11,32 +11,11 @@ public class Ship : MonoBehaviour, ITakeHit
     private void Awake()
     {
         _shipGraphics = GetComponent<MeshRenderer>();
-    }
-
-    public void TakeDamage()
-    {
-        if (_hitsRemaining > 0)
-        {
-            _hitsRemaining--;
-        }
-        else
-        {
-            SinkShip(this);
-        }
-    }
-
-    public int GetHitsRemaining()
-    {
-        return _hitsRemaining;
-    }
-
-    public int GetTotalHits()
-    {
-        return _totalHits;
+        _shipGraphics.enabled = false;
     }
 
     public void SinkShip(Ship ship)
     {
-        _shipGraphics.enabled = false;
+        _shipGraphics.enabled = true;
     }
 }
